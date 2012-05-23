@@ -1,8 +1,11 @@
-/*
+/*!
  * Collapse plugin for jQuery
  * http://github.com/danielstocks/jQuery-Collapse/
  *
  * @author Daniel Stocks (http://webcloud.se)
+ * @version 0.9.1
+ * @updated 17-AUG-2010
+ * 
  * Copyright 2010, Daniel Stocks
  * Released under the MIT, BSD, and GPL Licenses.
  */
@@ -19,6 +22,7 @@
                 head : "h3",
                 group : "div, ul",
                 cookieName : "collapse",
+                cookieEnabled : true,
                 // Default function for showing content
                 show: function() { 
                     this.show();
@@ -83,7 +87,7 @@
                 });
                 
                 // Look for existing cookies
-                if(cookieSupport) {
+                if(op.cookieEnabled && cookieSupport) {
                     for (var c=0;c<=l;c++) {
                         var val = $.cookie(cookie + c);
                         // Show content if associating cookie is found
@@ -118,7 +122,7 @@
                     if(t.hasClass(active)) {
                         content.trigger('hide');
                         cookieVal += 'closed';
-                        if(cookieSupport) {
+                        if(cookieSupport && (op.cookieName != false)) {
                             $.cookie(cookieName, cookieVal, { path: '/', expires: 10 });
                         }
                         return;
@@ -126,7 +130,7 @@
                     // Otherwise show it.
                     content.trigger('show');
                     cookieVal += 'open';
-                    if(cookieSupport) {
+                    if(cookieSupport && (op.cookieName != false)) {
                         $.cookie(cookieName, cookieVal, { path: '/', expires: 10 });
                     }
                 });
@@ -135,15 +139,14 @@
     });
 
     // Make sure can we eat cookies without getting into trouble.
-    var cookie = true;
-    $(function() {
+    var cookieSupport = (function() {
         try {
             $.cookie('x', 'x', { path: '/', expires: 10 });
-        }
-        catch(e) {
-            cookie = false;
             $.cookie('x', null);
         }
-    });
-    var cookieSupport = $.fn.collapse.cookieSupport = cookie;
+        catch(e) {
+            return false;
+        }
+        return true;
+    })();
 })(jQuery);
