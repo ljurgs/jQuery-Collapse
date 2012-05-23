@@ -19,6 +19,7 @@
                 head : "h3",
                 group : "div, ul",
                 cookieName : "collapse",
+				cookieEnabled : true,
                 // Default function for showing content
                 show: function() { 
                     this.show();
@@ -83,7 +84,7 @@
                 });
                 
                 // Look for existing cookies
-                if(cookieSupport) {
+                if(op.cookieEnabled && cookieSupport) {
                     for (var c=0;c<=l;c++) {
                         var val = $.cookie(cookie + c);
                         // Show content if associating cookie is found
