@@ -1,9 +1,4 @@
 ===============
-Fork
-===============
-A fork of jQuery Collapse for use in the Yii framework extension authored by me.
-
-===============
 jQuery Collapse
 ===============
 
