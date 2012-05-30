@@ -146,7 +146,9 @@
         }
         catch(e) {
             cookie = false;
-            $.cookie('x', null);
+            if ($.isFunction($.cookie)) {
+                $.cookie('x', null);
+            }
         }
     });
     var cookieSupport = $.fn.collapse.cookieSupport = cookie;
